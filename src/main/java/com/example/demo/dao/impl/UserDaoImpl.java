@@ -28,9 +28,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByEmail(String email) {
+        System.out.println("DB hit starting...");
         String sql = "SELECT id, email, password FROM users WHERE email = ?";
         try {
             User user = jdbcTemplate.queryForObject(sql, userRowMapper, email);
+            System.out.println("User Found : "+user);
             return Optional.ofNullable(user);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
